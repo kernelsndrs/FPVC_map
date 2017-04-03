@@ -89,7 +89,7 @@
         myLayer.setGeoJSON(brewerGeojson);
 	myLayer.on('layeradd', function(e) {
 	    var marker = e.layer,
-	      feature = marler.feature;
+	      feature = marker.feature;
 	    marker.setIcon(L.icon(feature.properties.icon));
 	});
         myLayer.on('mouseover', function(e) {
