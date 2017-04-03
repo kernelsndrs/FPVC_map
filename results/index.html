@@ -66,8 +66,6 @@
                     type: 'Feature',
                     properties: {
                         title: '<h1>' + brewers[i].gsx$name.$t + '</h1>',
-                        'marker-color': '#227FBB',
-                        'marker-size': 'large',
                         url: 'https://fpvchat.slack.com/team/' + brewers[i].gsx$name.$t,
 			icon: {
 				iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Drone.svg',
@@ -99,7 +97,7 @@
             e.layer.closePopup();
         });
         map.setView([39.12367, -106.81229], 4);
-        map.fitBounds(myLayer.getBounds());
+//        map.fitBounds(myLayer.getBounds());
     });
     </script>
 
