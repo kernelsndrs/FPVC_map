@@ -4,8 +4,13 @@
 	<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<<<<<<< HEAD
+	<title>Homebrew Chat Member Map</title>
+  	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css" rel="stylesheet">
+=======
 	<title>FPV Chat Member Map</title>
   	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel="stylesheet">
+>>>>>>> master
   	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
   		<!--[if lte IE 8]>
   			<link href='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.ie.css' rel='stylesheet'>
@@ -50,8 +55,13 @@
 
 	<!--ADD THE FORM RESPONSE ACTION HERE, WITH A REDIRECT-->
 	<script type="text/javascript">var submitted=false;</script>
+<<<<<<< HEAD
+	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='https://dmofot.github.io/homebrewchat/results/';}"></iframe>
+	<form action="https://docs.google.com/forms/d/1OskkCYjZLAdo-2bEeSBqEQNmweLtXmrJOOUGpZg8eMo/formResponse" method="POST" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
+=======
 	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='http://kernelsndrs.github.io/FPVC_map/results/';}"></iframe>
 	<form action="https://docs.google.com/forms/d/e/1FAIpQLSe-4qtJgmjo5Ev1U9VMjQy0YEakprUso5N1J4DA9xxU-lHDHw/formResponse" method="POST" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
+>>>>>>> master
 		<div class="container">
 			<div class="jumbotron starter-template">
 				<h1>FPV Chat Member Map</h1>
@@ -93,8 +103,13 @@
 		</div>
 	</form>
 
+<<<<<<< HEAD
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+=======
 	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+>>>>>>> master
 	<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
 	<script type='text/javascript'>
 		// Set default location in case the IP doesn't have one
@@ -105,7 +120,11 @@
 		$('#entry_126339808').attr('value', x);
 
 		// Build the map
+<<<<<<< HEAD
+		L.mapbox.accessToken = 'pk.eyJ1IjoiZG1vZm90IiwiYSI6IjMyODFmMjkwYTQ1NjUxYTEzOWYwOGZlMTMxY2FjZThiIn0.eNpL_ksyAN2Tcy5UeLqhyQ';
+=======
 		L.mapbox.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
+>>>>>>> master
 		var map = L.mapbox.map('map', 'mapbox.streets', {scrollWheelZoom:false}).setView([y, x], z);
 
 		// Update these values as the map gets dragged around
