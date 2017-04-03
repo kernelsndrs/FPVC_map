@@ -4,7 +4,7 @@
 	<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<title>Homebrew Chat Member Map</title>
+	<title>FPV Chat Member Map</title>
   	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/superhero/bootstrap.min.css" rel="stylesheet">
   	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
   		<!--[if lte IE 8]>
@@ -46,15 +46,15 @@
 </head>
 <body>
 	<!--ADD THE FORM EMBEDURL BELOW-->
-	<meta itemprop="embedUrl" content="https://docs.google.com/forms/d/1OskkCYjZLAdo-2bEeSBqEQNmweLtXmrJOOUGpZg8eMo/viewform?embedded=true">
+	<meta itemprop="embedUrl" content="https://docs.google.com/forms/d/e/1FAIpQLSe-4qtJgmjo5Ev1U9VMjQy0YEakprUso5N1J4DA9xxU-lHDHw/viewform?embedded=true">
 
 	<!--ADD THE FORM RESPONSE ACTION HERE, WITH A REDIRECT-->
 	<script type="text/javascript">var submitted=false;</script>
-	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='http://dmofot.github.io/homebrewchat/results/';}"></iframe>
-	<form action="https://docs.google.com/forms/d/1OskkCYjZLAdo-2bEeSBqEQNmweLtXmrJOOUGpZg8eMo/formResponse" method="POST" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
+	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='http://kernelsndrs.github.io/FPVC_map/results/';}"></iframe>
+	<form action="https://docs.google.com/forms/d/e/1FAIpQLSe-4qtJgmjo5Ev1U9VMjQy0YEakprUso5N1J4DA9xxU-lHDHw/formResponse" method="POST" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
 		<div class="container">
 			<div class="jumbotron starter-template">
-				<h1>Homebrew Chat Member Map</h1>
+				<h1>FPV Chat Member Map</h1>
 			</div>
 			<div class="starter-template">
 				<h2><em>(1) </em>Where you at?<h2>
@@ -67,8 +67,8 @@
 					</span>
 				</div>
 				<div class="starter-template">
-					<h2><em>(2) </em>What's your homebrew chat username?<h2>
-					<input class="form-control" name="entry.1916041296" value="" id="entry_1916041296" placeholder="Username">
+					<h2><em>(2) </em>What's your FPV chat username?<h2>
+					<input class="form-control" name="entry.299528647" value="" id="entry_299528647" placeholder="Username">
 				</div>
 				<!-- ADD GOOGLEFORM-RELATED INPUTS HERE, ALL HIDDEN.
 				THEY'LL BE GIVEN VALUES IN THE SCRIPT BELOW
@@ -76,8 +76,8 @@
 				THOSE IN THE SOURCE OF THE GOOGLE-HOSTED LIVE FORM-->
 
 				<!-- QUESTION 2: LAT/LONG -->
-				<input type="hidden" name="entry.2119658880" value="" id="entry_2119658880">
-				<input type="hidden" name="entry.1984352115" value="" id="entry_1984352115">
+				<input type="hidden" name="entry.375895535" value="" id="entry_375895535">
+				<input type="hidden" name="entry.126339808" value="" id="entry_126339808">
 
 				<!-- PAGE STUFF -->
 				<input type="hidden" name="pageNumber" value="0">
@@ -87,7 +87,7 @@
 				<h2>That's it! Thanks!<h2>
 				<input type="submit" name="submit" value="Submit" class="btn-lg btn-success">
 				<!-- Attribution
-				a repurposed @vtcraghead joint, modified by @dmofot
+				a repurposed @vtcraghead joint, modified by @dmofot, again by @kernelsndrs
 				-->
 			</div>
 		</div>
@@ -100,18 +100,18 @@
 		// Set default location in case the IP doesn't have one
 		var y = 37.09024;
 		var x = -95.71289;
-		var z = 8;
-		$('#entry_2119658880').attr('value', y);
-		$('#entry_1984352115').attr('value', x);
+		var z = 11;
+		$('#entry_375895535').attr('value', y);
+		$('#entry_126339808').attr('value', x);
 
 		// Build the map
-		L.mapbox.accessToken = 'your_api_key_here';
-		var map = L.mapbox.map('map', 'your_id_here.map_id_here', {scrollWheelZoom:false}).setView([y, x], z);
+		L.mapbox.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
+		var map = L.mapbox.map('map', 'mapbox.streets', {scrollWheelZoom:false}).setView([y, x], z);
 
 		// Update these values as the map gets dragged around
 		map.on('moveend', function(event) {
-			$('#entry_2119658880').attr('value', map.getCenter().lat);
-			$('#entry_1984352115').attr('value', map.getCenter().lng);
+			$('#entry_375895535').attr('value', map.getCenter().lat);
+			$('#entry_126339808').attr('value', map.getCenter().lng);
 		});
 
 		// Grab IP location from freegeoip API
@@ -121,8 +121,8 @@
 				x = json.longitude;
 				z = 8
 				// Set form lat/lon fields from map center location
-				$('#entry_2119658880').attr('value', y);
-				$('#entry_1984352115').attr('value', x);
+				$('#entry_375895535').attr('value', y);
+				$('#entry_126339808').attr('value', x);
 				map.panTo([y, x]);
 			}
 		});
