@@ -87,6 +87,11 @@
         var myLayer = L.mapbox.featureLayer().addTo(map);
 
         myLayer.setGeoJSON(brewerGeojson);
+	myLayer.on('layeradd', function(e) {
+	    var marker = e.layer,
+	      feature = marler.feature;
+	    marker.setIcon(L.icon(feature.properties.icon));
+	});
         myLayer.on('mouseover', function(e) {
             e.layer.openPopup();
         });
