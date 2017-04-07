@@ -4,8 +4,9 @@
     <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
     <meta charset=utf-8 />
     <title>FPV Chat Members</title>
+
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
     <style>
         body { margin:0; padding:0; }
@@ -14,26 +15,13 @@
 </head>
 <body>
     <style>
-        .leaflet-popup-content-wrapper {
-            background: #227FBB; !important
-        }
-        .leaflet-popup-tip {
-            border-top: 10px solid #227FBB; !important
-        }
-        div.marker-title {
-            color: #fff; !important
-        }
-        #content {
-            position:absolute;
-            left:0;
-            right:0;
-            height:150px;
-            bottom:0;
-            background:rgba(255, 255, 255, 0.9);
-        }
-        .sidecontainer {
-            padding:20px;
-        }
+	.marker {
+    	display: block;
+	    border: none;
+	    border-radius: 50%;
+	    cursor: pointer;
+	    padding: 0;
+	}
     </style>
 
     <div id='map'></div>
@@ -45,17 +33,19 @@
         </div>
     </div>
 
+
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-    <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
-
-
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
 
     <script>
     $.getJSON("https://spreadsheets.google.com/feeds/list/1Dvls_Hk-goeydu4kJoRWwS_ZmD55scbvG-wEugmYt54/1/public/values?alt=json", function(data) {
-        L.mapbox.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
-        var map = L.mapbox.map('map', 'mapbox.streets')
-
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
+	var map = new mapboxgl.Map({
+	    container: 'map',
+	    style: 'mapbox://styles/kernelsndrs/cj140c07t001q2rtn53py28tw',
+	    zoom: 4
+	});
         var brewers = data.feed.entry;
 
         var brewerGeojson = {type: 'FeatureCollection', features: []};
@@ -67,37 +57,36 @@
                     properties: {
                         title: '<h1>' + brewers[i].gsx$name.$t + '</h1>',
                         url: 'https://fpvchat.slack.com/team/' + brewers[i].gsx$name.$t,
-			icon: {
-				iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Drone.svg',
-				iconSize: [20,20],
-				iconAnchor: [0,10]
-			}
+			
+			'iconSize': [50,50],
+			
                     },
                     geometry: {
-                        type: 'Point',
-                        coordinates: [brewers[i].gsx$longitude.$t, brewers[i].gsx$latitude.$t]
+                        'type': 'Point',
+                        'coordinates': [brewers[i].gsx$longitude.$t, brewers[i].gsx$latitude.$t],
                     }
                 };
                 brewerGeojson.features.push(feature);
             }
         }
+	brewerGeojson.features.forEach(function(marker) {
+   	  // create a DOM element for the marker
+	  var el = document.createElement('div');
+	  el.className = 'marker';
+	  el.style.backgroundImage = 'url(https://cdn.shopify.com/s/files/1/0991/6686/products/Le-Hyphy-FPV-Frame-Side_large.jpg?v=1481002981)';
+	  el.style.width = marker.properties.iconSize[0] + 'px';
+	  el.style.height = marker.properties.iconSize[1] + 'px';
 
-        var myLayer = L.mapbox.featureLayer().addTo(map);
+	  el.addEventListener('click', function() {
+              window.alert(marker.properties.message);
+	  });
 
-        myLayer.setGeoJSON(brewerGeojson);
-	myLayer.on('layeradd', function(e) {
-	    var marker = e.layer,
-	      feature = marker.feature;
-	    marker.setIcon(L.icon(feature.properties.icon));
+	  // add marker to map
+	  new mapboxgl.Marker(el, {offset: [-marker.properties.iconSize[0] / 2, -marker.properties.iconSize[1] / 2]})
+	      .setLngLat(marker.geometry.coordinates)
+	      .addTo(map);
 	});
-        myLayer.on('mouseover', function(e) {
-            e.layer.openPopup();
-        });
-        myLayer.on('mouseout', function(e) {
-            e.layer.closePopup();
-        });
-        map.setView([39.12367, -106.81229], 4);
-        map.fitBounds(myLayer.getBounds());
+	
     });
     </script>
 
