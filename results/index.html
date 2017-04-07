@@ -55,7 +55,8 @@
     $.getJSON("https://spreadsheets.google.com/feeds/list/1Dvls_Hk-goeydu4kJoRWwS_ZmD55scbvG-wEugmYt54/1/public/values?alt=json", function(data) {
         L.mapbox.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
         var map = L.mapbox.map('map', 'mapbox.streets', {
-   	 // These options apply to the tile layer in the map.
+	    minZoom: 3,
+   	    // These options apply to the tile layer in the map.
 	    tileLayer: {
         	// This map option disables world wrapping. by default, it is false.
 	        continuousWorld: false,
