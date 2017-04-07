@@ -6,70 +6,71 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>FPV Chat Member Map</title>
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css" rel="stylesheet">
-  	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
   		<!--[if lte IE 8]>
   			<link href='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.ie.css' rel='stylesheet'>
-  		<![endif]-->
-  	<style>
-  		.starter-template {
-  			padding: 10px 15px 0px;
-  			text-align: center;
-  		}
-  		.submit-template {
-  			padding: 5px 15px 0px;
-  			text-align: center;
-  		}
-  		#map {
-  			height:400px;
-  			width:100%;
-  		}
-  		#centerpoint {
-  			display: none;
-  			width: 128px;
-  			height: 128px;
-  			background: transparent url(img/crosshair.png) 0 0 no-repeat scroll;
-  			overflow: visible;
-  			position: absolute;
-  			top: 50%;
-  			left: 50%;
-  			margin: -64px 0 0 -64px;
-  			pointer-events: none;
-  			z-index: 11;
-  			opacity: 1;
-  			-webkit-transition: opacity 0.25s;
-  			-moz-transition: opacity 0.25s;
-  			-o-transition: opacity 0.25s;
-  			-ms-transition: opacity 0.25s;
-  			transition: opacity 0.25s;
-  		}
-  	</style>
-</head>
-<body>
-	<!--ADD THE FORM EMBEDURL BELOW-->
-	<meta itemprop="embedUrl" content="https://docs.google.com/forms/d/e/1FAIpQLSe-4qtJgmjo5Ev1U9VMjQy0YEakprUso5N1J4DA9xxU-lHDHw/viewform?embedded=true">
+  			<![endif]-->
+  			<style>
+  				.starter-template {
+  					padding: 10px 15px 0px;
+  					text-align: center;
+  				}
+  				.submit-template {
+  					padding: 5px 15px 0px;
+  					text-align: center;
+  				}
+  				#map {
+  					height:400px;
+  					width:100%;
+  				}
+  				#centerpoint {
+  					display: none;
+  					width: 128px;
+  					height: 128px;
+  					background: transparent url(img/crosshair.png) 0 0 no-repeat scroll;
+  					overflow: visible;
+  					position: absolute;
+  					top: 50%;
+  					left: 50%;
+  					margin: -64px 0 0 -64px;
+  					pointer-events: none;
+  					z-index: 11;
+  					opacity: 1;
+  					-webkit-transition: opacity 0.25s;
+  					-moz-transition: opacity 0.25s;
+  					-o-transition: opacity 0.25s;
+  					-ms-transition: opacity 0.25s;
+  					transition: opacity 0.25s;
+  				}
+  			</style>
+  		</head>
+  		<body>
+  			<!--ADD THE FORM EMBEDURL BELOW-->
+  			<meta itemprop="embedUrl" content="https://docs.google.com/forms/d/e/1FAIpQLSe-4qtJgmjo5Ev1U9VMjQy0YEakprUso5N1J4DA9xxU-lHDHw/viewform?embedded=true">
 
-	<!--ADD THE FORM RESPONSE ACTION HERE, WITH A REDIRECT-->
-	<script type="text/javascript">var submitted=false;</script>
-	<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='http://kernelsndrs.github.io/FPVC_map/results/';}"></iframe>
-	<form action="https://docs.google.com/forms/d/e/1FAIpQLSe-4qtJgmjo5Ev1U9VMjQy0YEakprUso5N1J4DA9xxU-lHDHw/formResponse" method="POST" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
-		<div class="container">
-			<div class="jumbotron starter-template">
-				<h1>FPV Chat Member Map</h1>
-			</div>
-			<div class="starter-template">
-				<h2><em>(1) </em>Where you at?<h2>
-				<p><small>Drag the map to center the marker on your general location</small></p>
-				<div id="map">
-					<span id="centerpoint" class="" style="display: inline;">
-						<span class="shadow"></span>
-						<span class="x"></span>
-						<span class="marker"></span>
-					</span>
-				</div>
-				<div class="starter-template">
-					<h2><em>(2) </em>What's your FPV chat username?<h2>
-					<input class="form-control" name="entry.299528647" value="" id="entry_299528647" placeholder="Username">
-				</div>
+  			<!--ADD THE FORM RESPONSE ACTION HERE, WITH A REDIRECT-->
+  			<script type="text/javascript">var submitted=false;</script>
+  			<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {window.location='http://kernelsndrs.github.io/FPVC_map/results/';}"></iframe>
+  			<form action="https://docs.google.com/forms/d/e/1FAIpQLSe-4qtJgmjo5Ev1U9VMjQy0YEakprUso5N1J4DA9xxU-lHDHw/formResponse" method="POST" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;">
+  				<div class="container">
+  					<div class="jumbotron starter-template">
+  						<h1>FPV Chat Member Map</h1>
+  					</div>
+  					<div class="starter-template">
+  						<h2><em>(1) </em>Where you at?<h2>
+  							<p><small>Drag the map to center the marker on your general location</small></p>
+  							<p><small>If you have an adblocker on, disabling it will get you in the general area.</small></p>
+  							<div id="map">
+  								<span id="centerpoint" class="" style="display: inline;">
+  									<span class="shadow"></span>
+  									<span class="x"></span>
+  									<span class="marker"></span>
+  								</span>
+  							</div>
+  							<div class="starter-template">
+  								<h2><em>(2) </em>What's your FPV chat username?<h2>
+  									<input class="form-control" name="entry.299528647" value="" id="entry_299528647" placeholder="Username">
+  								</div>
 				<!-- ADD GOOGLEFORM-RELATED INPUTS HERE, ALL HIDDEN.
 				THEY'LL BE GIVEN VALUES IN THE SCRIPT BELOW
 				THE "NAME" AND "ID" PARAMETERS MUST CORRESPOND TO
@@ -85,18 +86,58 @@
 			</div>
 			<div class="submit-template">
 				<h2>That's it! Thanks!<h2>
-				<input type="submit" name="submit" value="Submit" class="btn-lg btn-success">
+					<input type="submit" name="submit" value="Submit" class="btn-lg btn-success">
 				<!-- Attribution
 				a repurposed @vtcraghead joint, modified by @dmofot, again by @kernelsndrs
-				-->
-			</div>
+			-->
 		</div>
-	</form>
+	</div>
+</form>
 
-	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
-	<script type='text/javascript'>
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
+<script type="text/javascript">
+	$( document ).ready( function()
+	{
+		$(document.body).append('<a id="advert-tracker"><img src="http://freegeoip.net/favicon.ico"></a>');
+
+		setTimeout(function()
+		{
+			if( $( "#advert-tracker" ).height() == 0)
+			{
+
+				$("body").append("<div id='advert-notice'><h1>Ad Blocker Detected</h1><p>We use the <a href='https://github.com/fiorix/freegeoip'>freegeoip api</a> to estimate your location, which most adblockers block. There are no ads on this site. If you don't disable then you have to scroll around to find your location.</p><h3>Click anywhere to close this message</h3></div>");
+
+				$("#advert-notice")
+				.css(
+				{
+					'opacity' : 0.9,
+					'position' : 'absolute',
+					'background-color' : '#222222',
+					'width' : '100%',
+					'top' : 0,
+					'left' : 0,
+					'height' : $(document).height(),
+					'color' : '#ffffff',
+					'text-align' : 'center',
+					'padding-top' : '50px',
+					'font-family' : 'arial'
+				}
+				);
+
+				$('#advert-notice').on('click', function()
+				{
+				    $('#advert-notice').fadeOut('fast'); 
+				}); 
+			}
+
+			$('#advert-tracker').remove();
+			
+		}, 500);
+	});
+</script>
+<script type='text/javascript'>
 		// Set default location in case the IP doesn't have one
 		var y = 37.09024;
 		var x = -95.71289;
@@ -106,7 +147,18 @@
 
 		// Build the map
 		L.mapbox.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
-		var map = L.mapbox.map('map', 'mapbox.streets', {scrollWheelZoom:false}).setView([y, x], z);
+		
+		var map = L.mapbox.map('map', 'mapbox.streets', {
+			scrollWheelZoom:false,
+			minZoom: 3,
+            	    // These options apply to the tile layer in the map.
+            	    tileLayer: {
+                        // This map option disables world wrapping. by default, it is false.
+                        continuousWorld: false,
+    	                // This option disables loading tiles outside of the world bounds.
+    	                noWrap: true
+    	            }
+    	        }).setView([y, x], z);
 
 		// Update these values as the map gets dragged around
 		map.on('moveend', function(event) {
