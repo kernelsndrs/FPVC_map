@@ -44,7 +44,9 @@
 	var map = new mapboxgl.Map({
 	    container: 'map',
 	    style: 'mapbox://styles/kernelsndrs/cj140c07t001q2rtn53py28tw',
-	    zoom: 4
+	    zoom: 0,
+	    center: [-39.12367, -0.81229],
+	    renderWorldCopies: false
 	});
         var brewers = data.feed.entry;
 
@@ -86,6 +88,7 @@
 	      .setLngLat(marker.geometry.coordinates)
 	      .addTo(map);
 	});
+		
 	
     });
     </script>
