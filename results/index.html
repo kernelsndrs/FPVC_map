@@ -1,114 +1,297 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
-    <meta charset=utf-8 />
-    <title>FPV Chat Members</title>
+	<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+	<meta charset=utf-8 />
+	<title>FPV Chat Members</title>
+
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
-    </style>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.css' rel='stylesheet' />
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body { margin:0; padding:0; }
+		#content { width: 20%; }
+		#map { position:absolute; top:0; bottom:0; width:80%; left:20%; }
+	</style>
 </head>
 <body>
-    <style>
-        .leaflet-popup-content-wrapper {
-            background: #227FBB; !important
-        }
-        .leaflet-popup-tip {
-            border-top: 10px solid #227FBB; !important
-        }
-        div.marker-title {
-            color: #fff; !important
-        }
-        #content {
-            position:absolute;
-            left:0;
-            right:0;
-            height:150px;
-            bottom:0;
-            background:rgba(255, 255, 255, 0.9);
-        }
-        .sidecontainer {
-            padding:20px;
-        }
-    </style>
 
-    <div id='map'></div>
+	<style>
+		.marker {
+			display: block;
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			padding: 0;
+		}
+		#menu {
+			background: #fff;
+			position: absolute;
+			z-index: 1;
+			top: 10px;
+			right: 10px;
+			border-radius: 3px;
+			width: 120px;
+			border: 1px solid rgba(0,0,0,0.4);
+			font-family: 'Open Sans', sans-serif;
+		}
 
-    <div id='content'>
-        <div class="sidecontainer">
-            <h1>FPV Chat Members</h1>
-            <h4>A map of participants in the <a target="_blank" href="http://fpv-chat.com/">FPVC</a> Slack community | <a target="_blank" href="http://kernelsndrs.github.io/FPVC_map/">Add yourself!</a></h4>
-        </div>
-    </div>
+		#menu a {
+			font-size: 13px;
+			color: #404040;
+			display: block;
+			margin: 0;
+			padding: 0;
+			padding: 10px;
+			text-decoration: none;
+			border-bottom: 1px solid rgba(0,0,0,0.25);
+			text-align: center;
+		}
 
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-    <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
+		#menu a:last-child {
+			border: none;
+		}
+
+		#menu a:hover {
+			background-color: #f8f8f8;
+			color: #404040;
+		}
+
+		#menu a.active {
+			background-color: #3887be;
+			color: #ffffff;
+		}
+
+		#menu a.active:hover {
+			background: #3074a4;
+		}
+
+	</style>
+	<div id='menu'></div>
+	<div id='map'></div>
+
+	<div id='content'>
+		<div class="sidecontainer">
+			<h1>FPV Chat Members</h1>
+			<h4>A map of participants in the <a target="_blank" href="http://fpv-chat.com/">FPVC</a> Slack community | <a target="_blank" href="http://kernelsndrs.github.io/FPVC_map/">Add yourself!</a></h4>
+		</div>
+	</div>
 
 
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.js'></script>
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+	<script>
+		$.getJSON("https://spreadsheets.google.com/feeds/list/1Dvls_Hk-goeydu4kJoRWwS_ZmD55scbvG-wEugmYt54/1/public/values?alt=json", function(data) {
+			mapboxgl.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
+			var map = new mapboxgl.Map({
+				container: 'map',
+				style: 'mapbox://styles/kernelsndrs/cj140c07t001q2rtn53py28tw',
+				zoom: 1,
+				center: [-4.20, 4.20],
+				renderWorldCopies: false
+			});
+			var pilots = data.feed.entry;
 
-    <script>
-    $.getJSON("https://spreadsheets.google.com/feeds/list/1Dvls_Hk-goeydu4kJoRWwS_ZmD55scbvG-wEugmYt54/1/public/values?alt=json", function(data) {
-        L.mapbox.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
-        var map = L.mapbox.map('map', 'mapbox.streets', {
-	    minZoom: 3,
-   	    // These options apply to the tile layer in the map.
-	    tileLayer: {
-        	// This map option disables world wrapping. by default, it is false.
-	        continuousWorld: false,
-        	// This option disables loading tiles outside of the world bounds.
-	        noWrap: true
-	    }
-	});
+			var pilotsGeojson = {type: 'FeatureCollection', features: []};
 
-        var brewers = data.feed.entry;
-
-        var brewerGeojson = {type: 'FeatureCollection', features: []};
-
-        for (var i in brewers) {
-            if (brewers[i].gsx$latitude.$t) {
-                var feature = {
-                    type: 'Feature',
-                    properties: {
-                        title: '<h1>' + brewers[i].gsx$name.$t + '</h1>',
-                        url: 'https://fpvchat.slack.com/team/' + brewers[i].gsx$name.$t,
-			icon: {
-				iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Drone.svg',
-				iconSize: [20,20],
-				iconAnchor: [0,10]
+			for (var i in pilots) {
+				if (pilots[i].gsx$latitude.$t) {
+					var feature = {
+						type: 'Feature',
+						properties: {
+							title:  pilots[i].gsx$name.$t,
+							url: 'https://fpvchat.slack.com/team/' + pilots[i].gsx$name.$t,
+							'iconSize': [50,50],
+						},
+						geometry: {
+							'type': 'Point',
+							'coordinates': [pilots[i].gsx$longitude.$t, pilots[i].gsx$latitude.$t]
+						}
+					};
+					pilotsGeojson.features.push(feature);
+				}
 			}
-                    },
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [brewers[i].gsx$longitude.$t, brewers[i].gsx$latitude.$t]
-                    }
-                };
-                brewerGeojson.features.push(feature);
-            }
-        }
+			map.on('load', function() {
+				map.loadImage('https://d30y9cdsu7xlg0.cloudfront.net/png/22061-200.png', (error, image) => {
+			        if (error) throw error;
+			        map.addImage('drone', image);
+			        
+			    
+				    // Add a new source from our GeoJSON data and set the
+				    // 'cluster' option to true. GL-JS will add the point_count property to your source data.
+				    map.addSource("pilots", {
+				    	type: "geojson",
+				    	data: pilotsGeojson,
+				    	cluster: true,
+				        clusterMaxZoom: 6, // Max zoom to cluster points on
+				        clusterRadius: 42 // Radius of each cluster when clustering points (defaults to 50)
+				    });
 
-        var myLayer = L.mapbox.featureLayer().addTo(map);
+				    map.addLayer({
+				    	id: "Clusters",
+				    	type: "circle",
+				    	source: "pilots",
+				    	filter: ["has", "point_count"],
+				    	layout: {
+				    		"visibility": "visible",
+				    	},
+				    	paint: {
+				    		"circle-color": {
+				    			property: "point_count",
+				    			type: "interval",
+				    			stops: [
+				    			[0, "#51bbd6"],
+				    			[100, "#f1f075"],
+				    			[750, "#f28cb1"],
+				    			]
+				    		},
+				    		"circle-radius": {
+				    			property: "point_count",
+				    			type: "interval",
+				    			stops: [
+				    			[0, 20],
+				    			[100, 30],
+				    			[750, 40]
+				    			]
+				    		}
+				    	}
+				    });
 
-        myLayer.setGeoJSON(brewerGeojson);
-	myLayer.on('layeradd', function(e) {
-	    var marker = e.layer,
-	      feature = marker.feature;
-	    marker.setIcon(L.icon(feature.properties.icon));
-	});
-        myLayer.on('mouseover', function(e) {
-            e.layer.openPopup();
-        });
-        myLayer.on('mouseout', function(e) {
-            e.layer.closePopup();
-        });
-        map.setView([39.12367, -106.81229], 4);
-        map.fitBounds(myLayer.getBounds());
-    });
-    </script>
+				    map.addLayer({
+				    	id: "cluster-count",
+				    	type: "symbol",
+				    	source: "pilots",
+				    	filter: ["has", "point_count"],
+				    	layout: {
+				    		"visibility": "visible",
+				    		"text-field": "{point_count}",
+				    		"text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+				    		"text-size": 12
+				    	}
+				    });
+
+				    map.addLayer({
+				    	id: "Pilots",
+				    	type: "symbol",
+				    	source: "pilots",
+				    	filter: ["!has", "point_count"],
+				    	layout: {
+				    		"visibility": "visible",
+			                "icon-image": "drone",
+			                "icon-size": .25,
+				            "text-field": "{title}",
+				            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+				            "text-offset": [0, 0.6],
+				            "text-anchor": "top"
+				    	}
+				    });	
+
+					// Each point range gets a different fill color.
+					var layers = [
+						[0, 'green'],
+						[5, 'orange'],
+						[10, 'red']
+					];
+
+				    layers.forEach(function (layer, i) {
+				        map.addLayer({
+				            "id": "Heatmap-" + i,
+				            "type": "circle",
+				            "source": "pilots",
+					    	layout: {
+					    		"visibility": "none",
+					    	},
+				            "paint": {
+				                "circle-color": layer[1],
+				                "circle-radius": 70,
+				                "circle-blur": 1 // blur the circles to get a heatmap look
+				            },
+				            "filter": i === layers.length - 1 ?
+				                [">=", "point_count", layer[0]] :
+				                ["all",
+				                    [">=", "point_count", layer[0]],
+				                    ["<", "point_count", layers[i + 1][0]]]
+				        });
+				    });
+
+				    // Menu links
+				    var toggleableLayerIds = [ "Pilots","Clusters","Heatmap" ];
+				    for (var i = 0; i < toggleableLayerIds.length; i++) {
+				    	var id = toggleableLayerIds[i];
+
+				    	var link = document.createElement('a');
+				    	link.href = '#';
+				    	link.className = 'active';
+				    	link.textContent = id;
+
+				    	if(id==="Heatmap"){
+				    		link.className = 'none';
+				    	}
+
+				    	link.onclick = function (e) {
+				    		var clickedLayer = this.textContent;
+				    		e.preventDefault();
+				    		e.stopPropagation();
+				    		if ( clickedLayer === "Heatmap" ){
+
+				    			for (var i = 0; i < 3; i++) {
+						    		var visibility = map.getLayoutProperty(clickedLayer+"-"+i, 'visibility');
+
+						    		if (visibility === 'visible') {
+						    			map.setLayoutProperty(clickedLayer+"-"+i, 'visibility', 'none');
+						    			this.className = '';
+						    		} else {
+						    			this.className = 'active';
+						    			map.setLayoutProperty(clickedLayer+"-"+i, 'visibility', 'visible');
+						    		}
+				    			};
+				    		}else {
+					    		var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+					    		if (visibility === 'visible') {
+					    			map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+					    			this.className = '';
+					    			if( clickedLayer === "Clusters" ){
+					    				map.setLayoutProperty("cluster-count", "visibility", "none");
+					    			}
+					    		} else {
+					    			this.className = 'active';
+					    			map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+					    			if( clickedLayer === "Clusters" ){
+					    				map.setLayoutProperty("cluster-count", "visibility", "visible");
+					    			}
+					    		}
+					    	}
+				    	};
+
+				    	var layers = document.getElementById('menu');
+				    	layers.appendChild(link);
+	   				}
+	   			});
+			});		
+
+
+		    // Center the map on the coordinates of any clicked symbol from the 'Pilots' layer.
+		    map.on('click', 'Pilots', function (e) {
+		        map.flyTo({center: e.features[0].geometry.coordinates});
+		    });
+
+		    // Change the cursor to a pointer when the it enters a feature in the 'Pilots' layer.
+		    map.on('mouseenter', 'Pilots', function () {
+		        map.getCanvas().style.cursor = 'pointer';
+		    });
+
+		    // Change it back to a pointer when it leaves.
+		    map.on('mouseleave', 'Pilots', function () {
+		        map.getCanvas().style.cursor = '';
+		    });
+
+
+			// Add geolocate control to the map.
+			map.addControl(new mapboxgl.GeolocateControl());
+		});
+	</script>
 
 </body>
 </html>
