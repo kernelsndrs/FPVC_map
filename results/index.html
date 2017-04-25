@@ -41,7 +41,7 @@
     <div id='content'>
         <div class="sidecontainer">
             <h1>FPV Chat Members</h1>
-            <h4>A map of participants in the <a target="_blank" href="http://fpv-chat.com/">FPVC</a> Slack community | <a target="_blank" href="http://kernelsndrs.github.io/FPVC_map/">Add yourself!</a></h4>
+            <h4>A map of participants in the <a target="_blank" href="http://fpv-chat.com/">FPVC</a> Slack community | <a target="_blank" href="http://kernelsndrs.github.io/FPVC_map/">Add yourself!</a> | <span id="pilot-count"></span> Pilots and counting..</h4>
         </div>
     </div>
 
@@ -67,6 +67,7 @@
 
         var brewers = data.feed.entry;
 
+	$("#pilot-count").text(brewers.length);
         var brewerGeojson = {type: 'FeatureCollection', features: []};
 
         for (var i in brewers) {
