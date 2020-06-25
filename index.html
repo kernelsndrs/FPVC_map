@@ -5,8 +5,8 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>FPV Chat Member Map</title>
-	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css" rel="stylesheet">
-	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+	<link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/superhero/bootstrap.min.css" rel="stylesheet" integrity="sha384-rvwYMW9Z/bbxZfgxHQEKx6D91KwffWAG+XnsoYNCGWi/qL1P9dIVYm1HBiHFqQEt" crossorigin="anonymous">
+	<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
   		<!--[if lte IE 8]>
   			<link href='http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.ie.css' rel='stylesheet'>
   			<![endif]-->
@@ -95,9 +95,9 @@
 	</div>
 </form>
 
-<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
 <script type="text/javascript">
 	$( document ).ready( function()
 	{
@@ -149,17 +149,19 @@
 		// Build the map
 		L.mapbox.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
 		
-		var map = L.mapbox.map('map', 'mapbox.streets', {
-			scrollWheelZoom:false,
-			minZoom: 3,
-            	    // These options apply to the tile layer in the map.
-            	    tileLayer: {
-                        // This map option disables world wrapping. by default, it is false.
-                        continuousWorld: false,
-    	                // This option disables loading tiles outside of the world bounds.
-    	                noWrap: true
-    	            }
-    	        }).setView([y, x], z);
+		var map = L.mapbox.map('map', null, {
+						scrollWheelZoom:false,
+						minZoom: 3,
+	            	    // These options apply to the tile layer in the map.
+	            	    tileLayer: {
+	                        // This map option disables world wrapping. by default, it is false.
+	                        continuousWorld: false,
+	    	                // This option disables loading tiles outside of the world bounds.
+	    	                noWrap: true
+	    	            }
+	    	        })
+					.setView([y, x], z)
+					.addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
 
 		// Update these values as the map gets dragged around
 		map.on('moveend', function(event) {

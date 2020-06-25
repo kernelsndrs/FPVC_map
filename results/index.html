@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <meta charset=utf-8 />
     <title>FPV Chat Members</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-mhpbKVUOPCSocLzx2ElRISIORFRwr1ZbO9bAlowgM5kO7hnpRBe+brVj8NNPUiFs" crossorigin="anonymous">
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -45,25 +45,26 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-    <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
 
 
 
     <script>
     $.getJSON("https://spreadsheets.google.com/feeds/list/1Dvls_Hk-goeydu4kJoRWwS_ZmD55scbvG-wEugmYt54/1/public/values?alt=json", function(data) {
         L.mapbox.accessToken = 'pk.eyJ1Ijoia2VybmVsc25kcnMiLCJhIjoiY2luOTZhMDg3MW1rZHRta3NpbHo5dXc4YiJ9.fe9jvqMz6sZh_h8Yx9olfw';
-        var map = L.mapbox.map('map', 'mapbox.streets', {
-	    minZoom: 2,
-   	    // These options apply to the tile layer in the map.
-	    tileLayer: {
-        	// This map option disables world wrapping. by default, it is false.
-	        continuousWorld: false,
-        	// This option disables loading tiles outside of the world bounds.
-	        noWrap: true
-	    }
-	});
+        var map = L.mapbox.map('map', null, {
+                	    minZoom: 2,
+                   	    // These options apply to the tile layer in the map.
+                	    tileLayer: {
+                        	// This map option disables world wrapping. by default, it is false.
+                	        continuousWorld: false,
+                        	// This option disables loading tiles outside of the world bounds.
+                	        noWrap: true
+                	    }
+                    })
+                    .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
 
         var brewers = data.feed.entry;
 
